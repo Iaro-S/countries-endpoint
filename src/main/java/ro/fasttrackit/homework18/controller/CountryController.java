@@ -8,6 +8,7 @@ import ro.fasttrackit.homework18.model.Countries;
 import ro.fasttrackit.homework18.service.CountryService;
 
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 @RestController
@@ -40,7 +41,7 @@ public class CountryController {
         return countryService.getPopulationForCountry(countryId);
     }
 
-    @GetMapping("{continent}/countries")
+    @GetMapping("/continent/{continent}/countries")
     public List<Countries> getContinentCountries(@PathVariable String continent) {
         return countryService.getContinentCountries(continent);
     }
@@ -48,5 +49,26 @@ public class CountryController {
     @GetMapping("{countryId}/neighbours")
     public List<List<String>> getCountryNeighbours(@PathVariable int countryId) {
         return countryService.getCountryNeighbours(countryId);
+    }
+
+    @GetMapping("/continent/{continent}/countries/{minPopulation}")
+    public List<Countries> getCountryLargerPopulation(@PathVariable String continent, @PathVariable long minPopulation) {
+        return countryService.getCountryLargerPopulation(continent, minPopulation);
+    }
+
+    @GetMapping("/{includeNeighbour}/{excludeNeighbour}")
+    public List<Countries> getCountryNeighbours(@PathVariable String includeNeighbour,
+                                                @PathVariable String excludeNeighbour) {
+        return countryService.getCountryNeighbours(includeNeighbour, excludeNeighbour);
+    }
+
+    @GetMapping("/population/{country}")
+    public Map<String, Long> mapCountryToPopulation(@PathVariable String country) {
+        return countryService.mapCountryToPopulation(country);
+    }
+
+    @GetMapping("/{continent}/countries")
+    public Map<String, List<Countries>> mapContinentToCountries(@PathVariable String continent) {
+        return countryService.mapContinentToCountries(continent);
     }
 }
