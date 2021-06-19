@@ -1,4 +1,4 @@
-package ro.fasttrackit.homework18.countries;
+package ro.fasttrackit.homework18.model;
 
 import java.util.Collections;
 import java.util.List;
@@ -13,7 +13,8 @@ public class Countries {
     private final String continent;
     private final List<String> neighbours;
 
-    public Countries(int id, String name, String capital, long population, long area, String continent, List<String> neighbours) {
+    public Countries(int id, String name, String capital, long population,
+                     long area, String continent, List<String> neighbours) {
         this.id = id;
         this.name = name;
         this.capital = capital;
@@ -69,7 +70,10 @@ public class Countries {
         if (this == o) return true;
         if (!(o instanceof Countries)) return false;
         Countries countries = (Countries) o;
-        return getId() == countries.getId() && getPopulation() == countries.getPopulation() && getArea() == countries.getArea() && Objects.equals(getName(), countries.getName()) && Objects.equals(getCapital(), countries.getCapital()) && Objects.equals(getContinent(), countries.getContinent()) && Objects.equals(getNeighbours(), countries.getNeighbours());
+        return getId() == countries.getId() && getPopulation() == countries.getPopulation()
+                && getArea() == countries.getArea() && Objects.equals(getName(), countries.getName())
+                && Objects.equals(getCapital(), countries.getCapital()) && Objects.equals(getContinent(),
+                countries.getContinent()) && Objects.equals(getNeighbours(), countries.getNeighbours());
     }
 
     @Override

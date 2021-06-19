@@ -1,4 +1,7 @@
-package ro.fasttrackit.homework18.countries;
+package ro.fasttrackit.homework18.service;
+
+import org.springframework.stereotype.Component;
+import ro.fasttrackit.homework18.model.Countries;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
@@ -6,13 +9,10 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+@Component
 public class CountryReader {
-    public static void main(String[] args) throws Exception {
-        List<Countries> countries = readCountriesFromFile();
-        countries.forEach(System.out::println);
-    }
 
-    private static List<Countries> readCountriesFromFile() throws Exception {
+    List<Countries> readCountriesFromFile() throws Exception {
         List<Countries> countries = new ArrayList<>();
         BufferedReader fileReader = new BufferedReader(new FileReader("files/countries"));
         int id = 1;
@@ -39,7 +39,7 @@ public class CountryReader {
     }
 
     private static List<String> getNeighbours(String neighbours) {
-        String[] neighboursList = neighbours.split("[~]");
+        String[] neighboursList = neighbours.split("~");
         List<String> result = new ArrayList<>();
         Collections.addAll(result, neighboursList);
         return result;
