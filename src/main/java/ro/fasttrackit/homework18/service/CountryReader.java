@@ -6,7 +6,7 @@ import ro.fasttrackit.homework18.model.Countries;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.util.ArrayList;
-import java.util.Collections;
+import java.util.Arrays;
 import java.util.List;
 
 @Component
@@ -39,9 +39,7 @@ public class CountryReader {
     }
 
     private static List<String> getNeighbours(String neighbours) {
-        String[] neighboursList = neighbours.split("~");
-        List<String> result = new ArrayList<>();
-        Collections.addAll(result, neighboursList);
-        return result;
+
+        return Arrays.asList(neighbours.split("~"));
     }
 }
