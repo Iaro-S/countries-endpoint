@@ -56,7 +56,7 @@ public class CountryService {
                 .collect(toList());
     }
 
-    public List<Countries> getCountryLargerPopulation(String continent, long minPopulation) {
+    public List<Countries> getCountryLargerPopulation(String continent, Long minPopulation) {
         return countries.stream()
                 .filter(countries -> countries.getContinent().equalsIgnoreCase(continent))
                 .filter(countries -> countries.getPopulation() >= minPopulation)
@@ -76,9 +76,8 @@ public class CountryService {
                 .collect(toMap(Countries::getName, Countries::getPopulation));
     }
 
-    public Map<String, List<Countries>> mapContinentToCountries(String continent) {
+    public Map<String, List<Countries>> mapContinentToCountries() {
         return countries.stream()
-                .filter(countries -> countries.getContinent().equalsIgnoreCase(continent))
                 .collect(groupingBy(Countries::getContinent));
     }
 }

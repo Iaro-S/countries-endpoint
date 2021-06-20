@@ -1,9 +1,6 @@
 package ro.fasttrackit.homework18.controller;
 
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import ro.fasttrackit.homework18.model.Countries;
 import ro.fasttrackit.homework18.service.CountryService;
 
@@ -31,9 +28,9 @@ public class CountryController {
         return countryService.getAllCountriesNames();
     }
 
-    @GetMapping("{countryId}/capital")
-    public String getCapitalForCountry(@PathVariable int countryId) {
-        return countryService.getCapitalForCountry(countryId).orElse("Id not found, try another one.");
+    @GetMapping("/{countryId}/capital")
+    public Optional<String> getCapitalForCountry(@PathVariable int countryId) {
+        return countryService.getCapitalForCountry(countryId);
     }
 
     @GetMapping("{countryId}/population")
@@ -41,7 +38,7 @@ public class CountryController {
         return countryService.getPopulationForCountry(countryId);
     }
 
-    @GetMapping("/continent/{continent}/countries")
+    @GetMapping("/{continent}/countries")
     public List<Countries> getContinentCountries(@PathVariable String continent) {
         return countryService.getContinentCountries(continent);
     }
@@ -51,14 +48,15 @@ public class CountryController {
         return countryService.getCountryNeighbours(countryId);
     }
 
-    @GetMapping("/continent/{continent}/countries/{minPopulation}")
-    public List<Countries> getCountryLargerPopulation(@PathVariable String continent, @PathVariable long minPopulation) {
+    @GetMapping("/continents/{continent}/countries")
+    public List<Countries> getCountryLargerPopulation(@PathVariable String continent,
+                                                      @RequestParam Long minPopulation) {
         return countryService.getCountryLargerPopulation(continent, minPopulation);
     }
 
-    @GetMapping("/{includeNeighbour}/{excludeNeighbour}")
-    public List<Countries> getCountryNeighbours(@PathVariable String includeNeighbour,
-                                                @PathVariable String excludeNeighbour) {
+    @GetMapping("/country")
+    public List<Countries> getCountryNeighbours(@RequestParam String includeNeighbour,
+                                                @RequestParam String excludeNeighbour) {
         return countryService.getCountryNeighbours(includeNeighbour, excludeNeighbour);
     }
 
@@ -67,8 +65,8 @@ public class CountryController {
         return countryService.mapCountryToPopulation(country);
     }
 
-    @GetMapping("/{continent}/countries")
-    public Map<String, List<Countries>> mapContinentToCountries(@PathVariable String continent) {
-        return countryService.mapContinentToCountries(continent);
+    @GetMapping("/continent/countries")
+    public Map<String, List<Countries>> mapContinentToCountries() {
+        return countryService.mapContinentToCountries();
     }
 }
