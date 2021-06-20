@@ -18,8 +18,8 @@ public class CountryController {
         this.countryService = countryService;
     }
 
-    //localhost:8080/countries/
-    @GetMapping()
+    //localhost:8080/countries/countries/
+    @GetMapping("countries")
     public List<Countries> getAllCountries() {
         return countryService.getAllCountries();
     }
@@ -50,7 +50,7 @@ public class CountryController {
 
     //localhost:8080//countries/174/neighbours
     @GetMapping("{countryId}/neighbours")
-    public List<List<String>> getCountryNeighbours(@PathVariable int countryId) {
+    public Optional<List<String>> getCountryNeighbours(@PathVariable int countryId) {
         return countryService.getCountryNeighbours(countryId);
     }
 

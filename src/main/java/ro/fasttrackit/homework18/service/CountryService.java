@@ -7,8 +7,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
-import java.util.function.Predicate;
 
+import static java.util.function.Predicate.not;
 import static java.util.stream.Collectors.*;
 
 @Service
@@ -49,11 +49,11 @@ public class CountryService {
                 .collect(toList());
     }
 
-    public List<List<String>> getCountryNeighbours(int countryId) {
+    public Optional<List<String>> getCountryNeighbours(int countryId) {
         return countries.stream()
                 .filter(countries -> countries.getId() == countryId)
                 .map(Countries::getNeighbours)
-                .collect(toList());
+                .findFirst();
     }
 
     public List<Countries> getCountryLargerPopulation(String continent, Long minPopulation) {
@@ -66,7 +66,7 @@ public class CountryService {
     public List<Countries> getCountryNeighbours(String includeNeighbour, String excludeNeighbour) {
         return countries.stream()
                 .filter(countries -> countries.getNeighbours().contains(includeNeighbour.toUpperCase()))
-                .filter(Predicate.not(countries -> countries.getNeighbours().contains(excludeNeighbour.toUpperCase())))
+                .filter(not(countries -> countries.getNeighbours().contains(excludeNeighbour.toUpperCase())))
                 .collect(toList());
     }
 
