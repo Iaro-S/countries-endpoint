@@ -70,9 +70,8 @@ public class CountryService {
                 .collect(toList());
     }
 
-    public Map<String, Long> mapCountryToPopulation(String country) {
+    public Map<String, Long> mapCountryToPopulation() {
         return countries.stream()
-                .filter(countries -> countries.getName().equalsIgnoreCase(country))
                 .collect(toMap(Countries::getName, Countries::getPopulation));
     }
 
